@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>数据中转页面</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Excel 数据展示</h1>
+    <div>
+        <p><strong>参数1的值：</strong> <span id="param1_value">加载中...</span></p>
+        <p><strong>参数2的值：</strong> <span id="param2_value">加载中...</span></p>
+    </div>
+
+    <script>
+        // 页面加载时执行，从网址中读取参数并显示
+        window.onload = function() {
+            // 1. 获取当前网址的查询字符串部分，即问号“？”后面的所有内容
+            const queryString = window.location.search;
+            
+            // 2. 使用现代浏览器内置的 URLSearchParams 工具来解析参数
+            const urlParams = new URLSearchParams(queryString);
+            
+            // 3. 获取参数“参数1”和“参数2”的值
+            // 注意：这里用的“参数1”，“参数2”必须和 Excel 公式里的参数名完全一致！
+            const value1 = urlParams.get('参数1');
+            const value2 = urlParams.get('参数2');
+            
+            // 4. 将获取到的值，更新到页面上对应的位置
+            // 如果网址中没有这个参数，就显示“未提供”
+            document.getElementById('param1_value').innerText = value1 || '未提供';
+            document.getElementById('param2_value').innerText = value2 || '未提供';
+        };
+    </script>
+</body>
+</html>
